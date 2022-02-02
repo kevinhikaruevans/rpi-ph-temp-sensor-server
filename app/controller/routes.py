@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app import db
-from app.models.models import SensorEntry
+from app.models.models import Devices, SensorEntry, SensorType
 
 api = Blueprint('api_routes', __name__, url_prefix='/api')
 
@@ -20,13 +20,20 @@ def get_entries(device_id, start_time, end_time):
 
 @api.route('/entries/push', methods=['POST'])
 def push_entry():
+    device = Devices.find_by_token(request.json['token'])
+    sensor = SensorType.find_by_name(request.json['sensor'])
+
+    if device is None:
+        return {'success': False}, 401
+    
+    if sensor is None:
+        return {'success': False}, 400
+    
     entry = SensorEntry(
-        # not sure if this should be request.json or form
-        # TODO: check client side code
-        device_id=request.form['device_id'], 
-        sensor_id=request.form['sensor_id'],
-        value=request.form['value'],
-        timestamp=request.form['timestamp']
+        device_id=device.id, 
+        sensor_id=sensor.id,
+        value=request.json['value'],
+        timestamp=request.json['timestamp']
     )
     
     try:

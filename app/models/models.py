@@ -25,8 +25,13 @@ class Devices(db.Model):
     __tablename__ = 'devices'
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer, ForeignKey('users.id'))
+    name = Column(String(64), unique=False)
+    token = Column(String(64), unique=True, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)
+
+    def find_by_token(token):
+        return Devices.query.filter_by(token=token).first()
 
     def __repr__(self):
         return '<Devices %r>' % self.name
@@ -48,6 +53,9 @@ class SensorEntry(db.Model):
     value = Column(Integer)
     timestamp = Column(DateTime, default=datetime.utcnow)
 
+    def find_by_name(name):
+        return SensorType.query.filter_by(name=name).first()
+        
     def __repr__(self):
         return '<SensorEntry %r>' % self.id
 
