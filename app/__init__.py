@@ -14,8 +14,8 @@ def create_app(config = Config):
     db.init_app(app)
     login.init_app(app)
 
-    from app.controller.routes import routes
-    app.register_blueprint(routes, url_prefix='/api')
+    from app.controller.routes import api
+    app.register_blueprint(api, url_prefix='/api')
 
     @app.route('/')
     def index():
