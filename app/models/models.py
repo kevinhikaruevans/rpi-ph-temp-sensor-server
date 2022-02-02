@@ -55,8 +55,7 @@ class SensorEntry(db.Model):
 
     def find_by_name(name):
         return SensorType.query.filter_by(name=name).first()
-        
+
     def __repr__(self):
         return '<SensorEntry %r>' % self.id
-
 
