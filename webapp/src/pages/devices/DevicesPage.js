@@ -11,6 +11,7 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
+import { Link as RouterLink } from 'react-router-dom';
 
 TimeAgo.addDefaultLocale(en);
 
@@ -89,7 +90,7 @@ function DevicesPage() {
                     </Grid>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" color="primary">View history</Button>
+                    <Button component={RouterLink} to={`/devices/${device.id}`} size="small" color="primary">View history</Button>
                 </CardActions>
             </Card>
         ));

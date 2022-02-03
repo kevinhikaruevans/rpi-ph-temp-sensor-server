@@ -4,6 +4,7 @@ import HeaderBar from './components/HeaderBar';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import DevicesPage from './pages/devices/DevicesPage';
+import DeviceHistoryPage from './pages/devices/DeviceHistoryPage';
 import { Container } from '@mui/material';
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<h1>Home</h1>} />
-            <Route path="/devices" element={<DevicesPage />} />
+            <Route path="/devices" element={<DevicesPage />} exact />
+            <Route path="/devices/:device_id" element={<DeviceHistoryPage />} exact/>
           </Routes>
         </Container>
       </BrowserRouter>  
