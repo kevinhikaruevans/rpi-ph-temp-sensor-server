@@ -11,7 +11,8 @@ import {
   } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
 import 'chartjs-adapter-moment';
-import { Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
+// import { Link as RouterLink } from 'react-router-dom';
 
 ChartJS.register(LinearScale, TimeSeriesScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -93,11 +94,12 @@ function DeviceHistoryPage(props) {
         return 'Loading...';
     }
     
-    return <>
+    return <Paper sx={{padding: 2}}>
+        {/* <Button component={RouterLink} to={`/devices/${device_id}`}>Back</Button> */}
         <Typography variant="h5">Device history</Typography>
         <Typography variant="subtitle"></Typography>
         <Scatter options={options} data={{ datasets }} />
-    </>
+    </Paper>
 }
 
 export default DeviceHistoryPage

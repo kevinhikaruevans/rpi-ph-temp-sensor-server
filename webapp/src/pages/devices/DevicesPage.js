@@ -13,7 +13,7 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
 import { Link as RouterLink } from 'react-router-dom';
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addDefaultLocale(en); // doing this wrong lol
 
 function SensorBadgeGridItem(props) {
     const { name, value } = props;
