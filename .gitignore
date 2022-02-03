@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 config.py
-app/view/static/
+#app/view/static/
