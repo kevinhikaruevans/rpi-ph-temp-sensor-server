@@ -19,7 +19,7 @@ def create_app(config = Config):
 
     @app.route('/')
     @app.errorhandler(404)
-    def index():
+    def index(error=None):
         return send_from_directory(config.STATIC_FOLDER, 'index.html')
             
     return app
