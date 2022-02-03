@@ -18,6 +18,7 @@ def create_app(config = Config):
     app.register_blueprint(api, url_prefix='/api')
 
     @app.route('/')
+    @app.errorhandler(404)
     def index():
         return send_from_directory(config.STATIC_FOLDER, 'index.html')
             
