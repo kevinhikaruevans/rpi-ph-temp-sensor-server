@@ -30,7 +30,7 @@ class Devices(db.Model):
     name: str
     token: str
     last_online: datetime
-    
+
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String(64), unique=False)
@@ -56,6 +56,8 @@ class SensorType(db.Model):
     name = Column(String(30), unique=True)
     description = Column(String(200))
 
+    def find_by_name(name):
+        return SensorType.query.filter_by(name=name).first()
     def __repr__(self):
         return '<SensorType %r>' % self.name
     
