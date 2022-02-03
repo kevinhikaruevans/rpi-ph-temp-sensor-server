@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { Link as RouterLink } from 'react-router-dom';
 
-const pages = ['Devices', 'Settings', 'Help'];
+const pages = ['My Devices', 'Products', 'Help'];
 const settings = ['Account', 'Dashboard', 'Logout'];
 
 const HeaderBar = () => {
@@ -37,7 +37,7 @@ const HeaderBar = () => {
   };
 
   return (
-    <AppBar position="static" elevation={0} color="transparent">
+    <AppBar position="static" elevation={0} color="transparent" sx={{backgroundColor: "white", marginBottom: 2}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -46,7 +46,7 @@ const HeaderBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            AquaSmart
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -91,7 +91,7 @@ const HeaderBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            AquaSmart
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -110,7 +110,7 @@ const HeaderBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Kevin Evans" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
