@@ -60,8 +60,8 @@ function DeviceHistoryPage(props) {
     const [ datasets, setDatasets ] = React.useState(null);
 
     useEffect(() => {
-        const start_time = new Date() - (1000 * 60 * 60 * 24); // 1440 points or so
-        const url = `/api/entries/${device_id}/${start_time}`;
+        const start_time = new Date(new Date() - (1000 * 60 * 60 * 24)); // 1440 points or so
+        const url = `/api/entries/${device_id}/${start_time.toISOString()}`;
     
         const fetchData = async () => {
           try {
@@ -76,7 +76,7 @@ function DeviceHistoryPage(props) {
                     acc[sensor_id] = {
                         label: sensor.name,
                         data: [],
-                        borderColor: 'black',
+                        // borderColor: 'black',
                         backgroundColor: colors[sensor_id % colors.length],
                         yAxisID: sensor_id === 1 ? 'y' : 'y1',
                     };

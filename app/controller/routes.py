@@ -46,8 +46,8 @@ def get_latest(device_id):
     latest = SensorEntry.query.filter(SensorEntry.id.in_(subquery)).all()
     return {'latest': list(latest)}
 
-@api.route('/entries/<int:device_id>/<int:start_time>', defaults={'end_time': None})
-@api.route('/entries/<int:device_id>/<int:start_time>/<int:end_time>')
+@api.route('/entries/<int:device_id>/<start_time>', defaults={'end_time': None})
+@api.route('/entries/<int:device_id>/<start_time>/<end_time>')
 def get_entries(device_id, start_time, end_time):
     # todo: auth checks
     if end_time is None:
@@ -56,6 +56,7 @@ def get_entries(device_id, start_time, end_time):
     entries = SensorEntry.query \
         .filter_by(device_id=device_id) \
         .filter(SensorEntry.timestamp.between(start_time, end_time)) \
+        .order_by(SensorEntry.timestamp.desc()) \
         .limit(1000) \
         .all()
     
