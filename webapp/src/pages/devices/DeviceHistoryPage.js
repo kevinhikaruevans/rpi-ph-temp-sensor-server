@@ -26,12 +26,22 @@ const options = {
         y: {
           type: 'linear',
           display: true,
-          position: 'left'
+          position: 'left',
+          title: {
+            display: true,
+            text: 'Temperature (°C)'
+          }
         },
         y1: {
           type: 'linear',
           display: true,
           position: 'right',
+          title: {
+            display: true,
+            text: 'pH'
+          },
+          max: 9,
+          min: 2,
           grid: {
             drawOnChartArea: false,
           },
