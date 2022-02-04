@@ -21,7 +21,7 @@ const options = {
     // stacked: true,
     scales: {
         x: {
-            type: 'timeseries'
+            type: 'time'
         },
         y: {
           type: 'linear',
@@ -76,12 +76,12 @@ function DeviceHistoryPage(props) {
                     x: new Date(entry.timestamp),
                     y: entry.value
                 });
-
+                
                 return acc;
             }, { });
 
             setDatasets(Object.values(ds));
-            // setTimeout(fetchData, 30000);
+            setTimeout(fetchData, 60000);
           } catch (error) {
             console.log("error", error);
           }
