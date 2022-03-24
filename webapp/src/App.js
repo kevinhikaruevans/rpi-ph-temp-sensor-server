@@ -3,6 +3,8 @@ import './App.css';
 import HeaderBar from './components/HeaderBar';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import HomePage from './pages/home/HomePage';
+import MapPage from './pages/map/MapPage';
 import DevicesPage from './pages/devices/DevicesPage';
 import DeviceHistoryPage from './pages/devices/DeviceHistoryPage';
 import { Container } from '@mui/material';
@@ -13,7 +15,8 @@ function App() {
         <HeaderBar />
         <Container>
           <Routes>
-            <Route path="/" element={<h1>Home</h1>} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="map" element={<MapPage />} />
             <Route path="/devices" element={<DevicesPage />} exact />
             <Route path="/devices/:device_id" element={<DeviceHistoryPage />} exact/>
           </Routes>

@@ -73,16 +73,27 @@ function DevicesPage() {
             </Grid>
         );
     }
+    function renderDeviceName(device) {
+        const { name } = device;
+        const split = name.split('-');
+        return (
+            <>
+                <Typography variant="h5">{split[0].trim()}</Typography>
+                <Typography variant="overline" sx={{display: 'block'}}>{split[1].trim()}</Typography>
+                <Typography variant="subtitle" color="textSecondary" title={device.last_online}>Last updated {timeAgo.format(new Date(device.last_online))}</Typography>
+            </>
+        );
+    }
     function renderDevices() {
         return devices.map(device => (
             <Card
                 key={device.id}
+                sx={{mb: 1}}
             >
                 <CardContent>
                     <Grid container>
                         <Grid item xs={8}>
-                            <Typography variant="h5">{device.name}</Typography>
-                            <Typography variant="subtitle" color="textSecondary" title={device.last_online}>Last updated {timeAgo.format(new Date(device.last_online))}</Typography>
+                            {renderDeviceName(device)}
                         </Grid>
                         <Grid item xs={4}>
                             {renderSensors(device)}

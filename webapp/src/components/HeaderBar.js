@@ -11,10 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Logo128 from './logo128.png';
+import { Link, Link as RouterLink } from 'react-router-dom';
 
-import { Link as RouterLink } from 'react-router-dom';
+const pages = ['My Devices', 'Map', 'Products', 'Help'];
+const pages_url = ['devices', 'map', 'products', 'help'];
 
-const pages = ['My Devices', 'Products', 'Help'];
 const settings = ['Account', 'Dashboard', 'Logout'];
 
 const HeaderBar = () => {
@@ -46,7 +48,9 @@ const HeaderBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            AquaSmart
+            <RouterLink to="/">
+              <img src={Logo128} alt="AquaSmart" style={{maxHeight: '2.5em'}}/>
+            </RouterLink>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -78,8 +82,8 @@ const HeaderBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem component={RouterLink} to="/devices" key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page, index) => (
+                <MenuItem component={RouterLink} to={pages_url[index]} key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -91,13 +95,15 @@ const HeaderBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            AquaSmart
+            <RouterLink to="/">
+              <img src={Logo128} alt="AquaSmart" style={{maxHeight: '1.5em'}}/>
+            </RouterLink>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
                 component={RouterLink}
-                to="/devices"
+                to={pages_url[index]}
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
@@ -129,8 +135,8 @@ const HeaderBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem component={RouterLink} to="/devices" key={setting} onClick={handleCloseNavMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem component={RouterLink} to={pages_url[index]} key={setting} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
