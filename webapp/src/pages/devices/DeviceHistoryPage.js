@@ -11,8 +11,12 @@ import {
   } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
 import 'chartjs-adapter-moment';
-import { Paper, Typography } from '@mui/material';
+import { Divider, Paper, Typography } from '@mui/material';
 // import { Link as RouterLink } from 'react-router-dom';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en.json';
+
+// TimeAgo.addDefaultLocale(en); // doing this wrong lol
 
 ChartJS.register(LinearScale, TimeSeriesScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -57,7 +61,27 @@ const colors = [
 
 function DeviceHistoryPage(props) {
     const { device_id } = useParams();
+    const [ device, setDevice ] = React.useState(null);
     const [ datasets, setDatasets ] = React.useState(null);
+    const timeAgo = new TimeAgo();
+
+    useEffect(() => {
+      const url = "/api/devices";
+  
+      const fetchData = async () => {
+        try {
+          const response = await fetch(url);
+          const json = await response.json();
+
+          // eslint-disable-next-line eqeqeq
+          setDevice(json.devices.find(device => device.id == device_id));
+        } catch (error) {
+          console.log("error", error);
+        }
+      };
+  
+      fetchData();
+    }, [device_id]);
 
     useEffect(() => {
         const start_time = new Date(new Date() - (1000 * 60 * 60 * 24)); // 1440 points or so
@@ -100,12 +124,25 @@ function DeviceHistoryPage(props) {
         fetchData();
     }, [device_id]);
     
-    if (datasets === null) {
+    if (datasets === null || device === null) {
         return 'Loading...';
+    }
+    function renderDeviceName(device) {
+      const { name } = device;
+      const split = name.split('-');
+      return (
+          <>
+              <Typography variant="h5">{split[0].trim()}</Typography>
+              <Typography variant="overline" sx={{display: 'block'}}>{split[1].trim()}</Typography>
+              <Typography variant="subtitle" color="textSecondary" title={device.last_online}>Last updated {timeAgo.format(new Date(device.last_online))}</Typography>
+          </>
+      );
     }
     
     return <Paper sx={{padding: 2}}>
         {/* <Button component={RouterLink} to={`/devices/${device_id}`}>Back</Button> */}
+        {renderDeviceName(device)}
+        <Divider sx={{my: 2}} />
         <Typography variant="h5">Device history</Typography>
         <Typography variant="subtitle"></Typography>
         <Scatter options={options} data={{ datasets }} />
